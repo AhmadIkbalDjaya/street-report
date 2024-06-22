@@ -37,6 +37,8 @@ class ReportSeeder extends Seeder
                     'damage_level' => rand(1, 5),
                     'report_status_id' => $reportStatuses->random()->id,
                     'point' => null,
+                    'province_id' => rand(1, 6),
+                    'regency_id' => rand(1, 18),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -47,9 +49,25 @@ class ReportSeeder extends Seeder
     private function generateDescription()
     {
         $words = [
-            'Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur',
-            'adipiscing', 'elit', 'sed', 'do', 'eiusmod', 'tempor',
-            'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua'
+            'Lorem',
+            'ipsum',
+            'dolor',
+            'sit',
+            'amet',
+            'consectetur',
+            'adipiscing',
+            'elit',
+            'sed',
+            'do',
+            'eiusmod',
+            'tempor',
+            'incididunt',
+            'ut',
+            'labore',
+            'et',
+            'dolore',
+            'magna',
+            'aliqua'
         ];
 
         $numberOfWords = rand(15, 20);

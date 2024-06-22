@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Province;
+use App\Models\Regency;
 use App\Models\ReportStatus;
 use App\Models\ReportType;
 use App\Models\User;
@@ -25,6 +27,8 @@ return new class extends Migration
             $table->integer('damage_level')->unsigned();
             $table->foreignIdFor(ReportStatus::class)->nullable()->contrained()->references("id")->on("report_statuses")->onDelete("set null")->onUpdate("cascade");
             $table->integer('point')->nullable();
+            $table->foreignIdFor(Province::class)->constrained()->references("id")->on("provinces")->onDelete("cascade")->onUpdate("cascade");
+            $table->foreignIdFor(Regency::class)->constrained()->references("id")->on("regencies")->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();
         });
     }
