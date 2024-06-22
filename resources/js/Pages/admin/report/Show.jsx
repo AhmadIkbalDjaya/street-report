@@ -88,8 +88,8 @@ export default function Show({ report }) {
                         name={"Status Laporan"}
                         value={report.status}
                     />
-                    <ShowRowData name={"Provinsi"} value={"Nama Provinsi"} />
-                    <ShowRowData name={"Kabupaten"} value={"Nama Kabupaten"} />
+                    <ShowRowData name={"Provinsi"} value={report.province} />
+                    <ShowRowData name={"Kabupaten"} value={report.regency} />
                     <ShowRowData
                         name={"Deskripsi"}
                         value={report.description}

@@ -28,6 +28,8 @@ class ReportDetailResource extends JsonResource
             "point" => $this->point,
             "latitude" => $this->latitude,
             "longitude" => $this->longitude,
+            "province" => $this->province->name,
+            "regency" => $this->regency->name,
             "media" => (MediaResource::collection($this->report_media))->resolve(),
         ];
     }

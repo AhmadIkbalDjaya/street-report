@@ -30,4 +30,12 @@ class Report extends Model
     {
         return $this->hasMany(ReportMedia::class);
     }
+    public function province(): BelongsTo
+    {
+        return $this->belongsTo(Province::class);
+    }
+    public function regency(): BelongsTo
+    {
+        return $this->belongsTo(Regency::class);
+    }
 }

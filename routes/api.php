@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\LocationController;
 use App\Http\Controllers\User\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     Route::get('ranks', [RankController::class, "index"]);
 });
+
+Route::get('province', [LocationController::class, "province"]);
+Route::get('regency/{province}', [LocationController::class, "regency"]);

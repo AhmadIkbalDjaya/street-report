@@ -36,6 +36,8 @@ class ReportController extends Controller
             "description" => "nullable",
             "damage_level" => "required|in:1,2,3,4,5",
             "report_type_id" => "required|exists:report_types,id",
+            "province_id" => "required|exists:provinces,id",
+            "regency_id" => "required|exists:regencies,id",
             // "report_status_id" => "required|exists:report_statuses,id",
             "images" => "required|array|min:1",
         ]);

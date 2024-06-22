@@ -18,4 +18,8 @@ class Province extends Model
     {
         return $this->hasMany(Admin::class);
     }
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class);
+    }
 }
