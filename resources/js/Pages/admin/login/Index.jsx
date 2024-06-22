@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { router, usePage } from "@inertiajs/react";
 
 export default function Index() {
+    const { errors, flash } = usePage().props;
+    const [formValues, setFormValues] = useState({
+        email: "",
+        password: "",
+    });
+
+    function handleChangeForm(e) {
+        const name = e.target.name;
+        const value = e.target.value;
+        setFormValues((values) => ({
+            ...values,
+            [name]: value,
+        }));
+    }
+
+    function handleSubmitForm(e) {
+        e.preventDefault();
+        router.post(route("login.check"), formValues);
+    }
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -21,7 +41,15 @@ export default function Index() {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Masuk ke admin
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
+                        {flash.error && (
+                            <p class=" text-sm text-red-500 dark:text-gray-400">
+                                {flash.error}
+                            </p>
+                        )}
+                        <form
+                            className="space-y-4 md:space-y-6"
+                            onSubmit={handleSubmitForm}
+                        >
                             <div>
                                 <label
                                     htmlFor="email"
@@ -31,12 +59,19 @@ export default function Index() {
                                 </label>
                                 <input
                                     type="email"
-                                    name="email"
                                     id="email"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="nama@perusahaan.com"
+                                    placeholder="nama@gmail.com"
                                     required=""
+                                    name="email"
+                                    value={formValues.email}
+                                    onChange={handleChangeForm}
                                 />
+                                {errors.email && (
+                                    <p class=" text-sm text-red-500 dark:text-gray-400">
+                                        {errors.email}
+                                    </p>
+                                )}
                             </div>
                             <div>
                                 <label
@@ -47,12 +82,19 @@ export default function Index() {
                                 </label>
                                 <input
                                     type="password"
-                                    name="password"
                                     id="password"
                                     placeholder="••••••••"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required=""
+                                    name="password"
+                                    value={formValues.password}
+                                    onChange={handleChangeForm}
                                 />
+                                {errors.password && (
+                                    <p class=" text-sm text-red-500 dark:text-gray-400">
+                                        {errors.password}
+                                    </p>
+                                )}
                             </div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-start">
