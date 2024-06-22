@@ -1,8 +1,10 @@
+import { usePage } from "@inertiajs/react";
 import React from "react";
 import { BsMailbox2 } from "react-icons/bs";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
 
 export default function Sidebar() {
+    const auth = usePage().props.auth;
     return (
         <aside
             id="logo-sidebar"
@@ -24,13 +26,16 @@ export default function Sidebar() {
                         icon={<BsMailbox2 className="w-full h-full" />}
                         count={3}
                     />
-                    <SidebarItem
-                        name="Akun Admin"
-                        route_name="admin.account"
-                        icon={
-                            <TbLayoutDashboardFilled className="w-full h-full" />
-                        }
-                    />
+                    {auth.user.type == "super" ||
+                        (auth.user.type == "province" && (
+                            <SidebarItem
+                                name="Akun Admin"
+                                route_name="admin.account"
+                                icon={
+                                    <TbLayoutDashboardFilled className="w-full h-full" />
+                                }
+                            />
+                        ))}
                 </ul>
             </div>
         </aside>

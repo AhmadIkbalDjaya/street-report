@@ -4,14 +4,16 @@ import Breadcrumb from "../../../components/Breadcrumb";
 import { router, usePage } from "@inertiajs/react";
 import LabelRequired from "../../../components/LabelRequired";
 
-export default function Edit({ account, provinces }) {
+export default function Edit({ account, provinces, regencies }) {
     const { errors } = usePage().props;
-    console.log(errors);
+    const auth = usePage().props.auth;
+
     const [formValues, setFormValues] = useState({
         username: account.data.username,
         password: "",
         email: account.data.email,
         province_id: account.data.province_id,
+        regency_id: account.data.regency_id,
         _method: "PUT",
     });
     function handleChangeForm(e, index = null) {
@@ -132,38 +134,79 @@ export default function Edit({ account, provinces }) {
                             )}
                         </div>
                     </div>
-                    <div className="grid grid-cols-12 gap-x-1 pb-3">
-                        <div className="col-span-5 flex justify-between pt-1">
-                            <p className="flex gap-x-1">
-                                Provinsi <LabelRequired />
-                            </p>
-                            <p>: </p>
-                        </div>
-                        <div className="col-span-7">
-                            <select
-                                id="countries"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                name="province_id"
-                                value={formValues.province_id}
-                                defaultValue={""}
-                                onChange={handleChangeForm}
-                            >
-                                <option value={""}>Pilih Provinsi</option>
-                                {provinces.data.map((province, index) => {
-                                    return (
-                                        <option key={index} value={province.id}>
-                                            {province.name}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                            {errors.province_id && (
-                                <p class=" text-sm text-red-500 dark:text-gray-400">
-                                    {errors.province_id}
+                    {auth.type == "super" ? (
+                        <div className="grid grid-cols-12 gap-x-1 pb-3">
+                            <div className="col-span-5 flex justify-between pt-1">
+                                <p className="flex gap-x-1">
+                                    Provinsi <LabelRequired />
                                 </p>
-                            )}
+                                <p>: </p>
+                            </div>
+                            <div className="col-span-7">
+                                <select
+                                    id="countries"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    name="province_id"
+                                    value={formValues.province_id}
+                                    defaultValue={""}
+                                    onChange={handleChangeForm}
+                                >
+                                    <option value={""}>Pilih Provinsi</option>
+                                    {provinces.data.map((province, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={province.id}
+                                            >
+                                                {province.name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                {errors.province_id && (
+                                    <p class=" text-sm text-red-500 dark:text-gray-400">
+                                        {errors.province_id}
+                                    </p>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className="grid grid-cols-12 gap-x-1 pb-3">
+                            <div className="col-span-5 flex justify-between pt-1">
+                                <p className="flex gap-x-1">
+                                    Kabupaten <LabelRequired />
+                                </p>
+                                <p>: </p>
+                            </div>
+                            <div className="col-span-7">
+                                <select
+                                    id="countries"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    name="regency_id"
+                                    value={formValues.regency_id}
+                                    defaultValue={""}
+                                    onChange={handleChangeForm}
+                                >
+                                    <option value={""}>Pilih Kabupaten</option>
+                                    {regencies.data.map((regency, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={regency.id}
+                                            >
+                                                {regency.name}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                {errors.regency_id && (
+                                    <p class=" text-sm text-red-500 dark:text-gray-400">
+                                        {errors.regency_id}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </BaseLayout>
