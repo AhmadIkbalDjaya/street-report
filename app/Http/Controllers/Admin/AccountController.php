@@ -51,7 +51,7 @@ class AccountController extends Controller
     public function create()
     {
         $provinces = Province::all();
-        return Inertia::render("admin/proposal/Create", [
+        return Inertia::render("admin/account/Create", [
             "provinces" => ProvinceResource::collection($provinces),
         ]);
     }
@@ -67,13 +67,13 @@ class AccountController extends Controller
         $validated["password"] = Hash::make($validated["password"]);
         $validated["type"] = "province";
         Admin::create($validated);
-        return to_route("admin.account.index");
+        return to_route("admin.account");
     }
 
     public function edit(Admin $account)
     {
         $provinces = Province::all();
-        return Inertia::render("admin/proposal/Create", [
+        return Inertia::render("admin/account/Edit", [
             "account" => new AdminAccountResource($account),
             "provinces" => ProvinceResource::collection($provinces),
         ]);
@@ -93,13 +93,13 @@ class AccountController extends Controller
             unset($validated["password"]);
         }
         $account->update($validated);
-        return to_route("admin.account.show", ["account" => $account->id]);
+        return to_route("admin.account");
     }
 
     public function destroy(Admin $account)
     {
         $account->delete();
-        return to_route("admin.account.index");
+        return to_route("admin.account");
 
     }
 }

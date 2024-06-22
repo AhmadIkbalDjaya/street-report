@@ -24,6 +24,13 @@ export default function Sidebar() {
                         icon={<BsMailbox2 className="w-full h-full" />}
                         count={3}
                     />
+                    <SidebarItem
+                        name="Akun Admin"
+                        route_name="admin.account"
+                        icon={
+                            <TbLayoutDashboardFilled className="w-full h-full" />
+                        }
+                    />
                 </ul>
             </div>
         </aside>

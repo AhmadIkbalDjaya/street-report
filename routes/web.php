@@ -15,12 +15,12 @@ Route::controller(ReportController::class)->group(function () {
   Route::post('report/{report}/set-point', "set_point")->name('admin.report.set_point');
 });
 
-// Route::prefix("account")->controller(AccountController::class)->group(function () {
-//   Route::get("", "index")->name('admin.account.index');
-  // Route::get("create", "create")->name('admin.account.create');
-  // Route::post("", 'store')->name('admin.account.store');
-  // Route::get('{account}', "show")->name('admin.account.show');
-  // Route::get("{account}/edit", "edit")->name('admin.account.edit');
-  // Route::put("{account}", "update")->name('admin.account.update');
-  // Route::delete("{account}", "destroy")->name('admin.account.delete');
-// });
+Route::prefix("account")->controller(AccountController::class)->group(function () {
+  Route::get("", "index")->name('admin.account');
+  Route::get("create", "create")->name('admin.account.create');
+  Route::post("", 'store')->name('admin.account.store');
+  Route::get('{account}', "show")->name('admin.account.show');
+  Route::get("{account}/edit", "edit")->name('admin.account.edit');
+  Route::put("{account}", "update")->name('admin.account.update');
+  Route::delete("{account}", "destroy")->name('admin.account.delete');
+});
