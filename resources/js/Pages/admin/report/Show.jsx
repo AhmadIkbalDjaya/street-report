@@ -3,18 +3,30 @@ import BaseLayout from "../../../layouts/BaseLayout";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { MdDelete } from "react-icons/md";
 import ShowRowData from "../../../components/ShowRowData";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
-export default function Show({ report }) {
-    // console.log(report);
-    // console.log(report.media[0].path);
+export default function Show({ report, statuses }) {
     const { url } = usePage().props;
+    const [statusId, setStatusId] = useState(report.status_id);
+    const [point, setPoint] = useState(report.point);
     const [selectedImage, setSelectedImage] = useState(
         report.media.length > 0 ? report.media[0].path : ""
     );
 
     const handleImageClick = (imageUrl) => {
         setSelectedImage(imageUrl);
+    };
+
+    const handleSetStatus = () => {
+        router.post(route("admin.report.set_status", { report: report.id }), {
+            status_id: statusId,
+        });
+    };
+
+    const handleSetPoint = () => {
+        router.post(route("admin.report.set_point", { report: report.id }), {
+            point: point,
+        });
     };
     return (
         <BaseLayout>
@@ -49,6 +61,7 @@ export default function Show({ report }) {
                             (_, index) => {
                                 return (
                                     <svg
+                                        key={index}
                                         className="w-4 h-4 text-yellow-300 ms-1"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -64,6 +77,7 @@ export default function Show({ report }) {
                             (_, index) => {
                                 return (
                                     <svg
+                                        key={index}
                                         className="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -84,10 +98,41 @@ export default function Show({ report }) {
                         value={report.reporter_name}
                     />
                     <ShowRowData name={"Jenis Laporan"} value={report.type} />
-                    <ShowRowData
+                    {/* <ShowRowData
                         name={"Status Laporan"}
                         value={report.status}
-                    />
+                    /> */}
+                    <div className="grid grid-cols-12 gap-x-1 pb-2">
+                        <div className="col-span-5 flex justify-between">
+                            <p>Status Laporan</p>
+                            <p>: </p>
+                        </div>
+                        <div className="col-span-7 flex gap-x-2">
+                            <select
+                                id="countries"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                value={statusId}
+                                onChange={(e) => {
+                                    setStatusId(e.target.value);
+                                }}
+                            >
+                                {statuses.map((status, index) => {
+                                    return (
+                                        <option key={index} value={status.id}>
+                                            {status.name}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                            <button
+                                onClick={handleSetStatus}
+                                type="button"
+                                className="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            >
+                                Ubah Status
+                            </button>
+                        </div>
+                    </div>
                     <ShowRowData name={"Provinsi"} value={report.province} />
                     <ShowRowData name={"Kabupaten"} value={report.regency} />
                     <ShowRowData
@@ -95,16 +140,32 @@ export default function Show({ report }) {
                         value={report.description}
                     />
                     <ShowRowData name={"Tanggal Laporan"} value={report.date} />
-                    <ShowRowData name={"Berikan Point"} value={"10"} />
-                    {/* <div className="grid grid-cols-12 gap-x-1 pb-2">
+                    {/* <ShowRowData name={"Berikan Point"} value={"10"} /> */}
+                    <div className="grid grid-cols-12 gap-x-1 pb-2">
                         <div className="col-span-5 flex justify-between">
-                            <p>Nama Jalan</p>
+                            <p>Berikan Point</p>
                             <p>: </p>
                         </div>
-                        <div className="col-span-7">
-                            Jalan Sultan Hasanuddin
+                        <div className="col-span-7 flex gap-x-2">
+                            <input
+                                type="number"
+                                id="first_name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                value={point}
+                                required
+                                onChange={(e) => {
+                                    setPoint(e.target.value);
+                                }}
+                            />
+                            <button
+                                onClick={handleSetPoint}
+                                type="button"
+                                className="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            >
+                                Ubah Status
+                            </button>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
 

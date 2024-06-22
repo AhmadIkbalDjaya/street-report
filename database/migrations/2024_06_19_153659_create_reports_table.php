@@ -26,7 +26,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->integer('damage_level')->unsigned();
             $table->foreignIdFor(ReportStatus::class)->nullable()->contrained()->references("id")->on("report_statuses")->onDelete("set null")->onUpdate("cascade");
-            $table->integer('point')->nullable();
+            $table->integer('point')->nullable()->default(0);
             $table->foreignIdFor(Province::class)->constrained()->references("id")->on("provinces")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignIdFor(Regency::class)->constrained()->references("id")->on("regencies")->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();

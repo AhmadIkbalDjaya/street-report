@@ -22,6 +22,7 @@ class ReportDetailResource extends JsonResource
             "date" => Carbon::parse($this->created_at)->translatedFormat("d F Y"),
             "reporter_name" => $this->user->name,
             "status" => $this->report_status->name,
+            "status_id" => $this->report_status_id,
             "type" => $this->report_type->name,
             "description" => $this->description,
             "damage_level" => $this->damage_level,

@@ -10,6 +10,7 @@ use App\Http\Resources\IdNameResource;
 use App\Models\Report;
 use App\Models\ReportStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ReportController extends Controller
@@ -50,8 +51,37 @@ class ReportController extends Controller
 
     public function show(Report $report)
     {
+        $statuses = ReportStatus::all();
         return Inertia::render("admin/report/Show", [
             "report" => (new ReportDetailResource($report))->resolve(),
+            "statuses" => IdNameResource::collection($statuses)->resolve(),
         ]);
+    }
+
+    public function set_status(Report $report, Request $request)
+    {
+        $validated = $request->validate([
+            "status_id" => "required|exists:report_statuses,id",
+        ]);
+        $report->update([
+            "report_status_id" => $validated["status_id"],
+        ]);
+        return to_route("admin.report.show", ["report" => $report->id]);
+    }
+
+    public function set_point(Report $report, Request $request)
+    {
+        $validated = $request->validate([
+            "point" => "required",
+        ]);
+        DB::transaction(function () use ($validated, $report) {
+            $report->update([
+                "point" => $validated["point"],
+            ]);
+            $report->user->update([
+                "point" => $report->user->point + $validated["point"],
+            ]);
+        });
+        return to_route("admin.report.show", ["report" => $report->id]);
     }
 }

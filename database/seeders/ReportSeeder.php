@@ -36,7 +36,6 @@ class ReportSeeder extends Seeder
                     'description' => $description,
                     'damage_level' => rand(1, 5),
                     'report_status_id' => $reportStatuses->random()->id,
-                    'point' => null,
                     'province_id' => rand(1, 6),
                     'regency_id' => rand(1, 18),
                     'created_at' => now(),
