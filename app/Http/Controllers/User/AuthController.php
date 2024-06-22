@@ -22,8 +22,12 @@ class AuthController extends Controller
             return response()->json([
                 "success" => true,
                 "message" => "Login Berhasil",
-                "token" => $user->createToken("token")->plaintTextToken,
-                "user" => new UserResource($user),
+                "token" => $user->createToken("token")->plainTextToken,
+                "id" => $user->id,
+                "name" => $user->name,
+                "email" => $user->email,
+                "photo" => $user->photo ? url("storage/" . $user->photo) : null,
+                "point" => $user->point,
             ], 200);
         } else {
             return response()->json([
