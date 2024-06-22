@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Admin\ReportDetailResource;
 use App\Http\Resources\Admin\ReportResource;
 use App\Http\Resources\Admin\ReportStatusFilter;
 use App\Http\Resources\IdNameResource;
@@ -44,6 +45,13 @@ class ReportController extends Controller
             "reports" => ReportResource::collection($reports),
             "meta" => $meta,
             "statuses" => ReportStatusFilter::collection($statuses),
+        ]);
+    }
+
+    public function show(Report $report)
+    {
+        return Inertia::render("admin/report/Show", [
+            "report" => (new ReportDetailResource($report))->resolve(),
         ]);
     }
 }

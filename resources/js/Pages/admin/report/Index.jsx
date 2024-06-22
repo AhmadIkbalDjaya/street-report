@@ -313,7 +313,7 @@ export default function Report({ reports, statuses, meta }) {
                                         </td>
                                         <td className="px-3 py-4">
                                             <a
-                                                href="#"
+                                                href={route("admin.report.show", {report: report.id})}
                                                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                             >
                                                 <IoMdEye size={20} />
