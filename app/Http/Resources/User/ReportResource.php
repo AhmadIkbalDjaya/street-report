@@ -14,10 +14,16 @@ class ReportResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if ($this->report_media->count() > 0) {
+            $photo = url("storage/" . $this->report_media[0]->file_path);
+        } else {
+            $photo = null;
+
+        }
         return [
             "id" => $this->id,
             "date" => $this->created_at,
-            "photo" => $this->report_media[0]->file_path ? url("storage/" . $this->report_media[0]->file_path) : null,
+            "photo" => $photo,
             "status" => $this->report_status->name,
             "type" => $this->report_type->name,
         ];

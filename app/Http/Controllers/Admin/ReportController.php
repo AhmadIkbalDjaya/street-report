@@ -17,11 +17,18 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
+        $auth_user = $request->user("admin");
+
         $page = $request->input("page", 1);
         $search = $request->input("search", "");
         $statusFilter = $request->input("statusFilter", []);
 
         $reports_query = Report::query();
+        if ($auth_user->type == "province") {
+            $reports_query->where("province_id", $auth_user->province_id);
+        } else if ($auth_user->type == "regency") {
+            $reports_query->where("regency_id", $auth_user->regency_id);
+        }
         if ($search) {
             $reports_query->where("name", "LIKE", "%$search%")
                 ->orWhereHas("user", function ($query) use ($search) {

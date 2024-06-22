@@ -1,6 +1,8 @@
+import { usePage } from "@inertiajs/react";
 import React from "react";
 
 export default function Navbar() {
+    const auth = usePage().props.auth;
     return (
         <nav className="fixed top-0 z-50 w-full bg-white dark:bg-gray-800">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -70,13 +72,13 @@ export default function Navbar() {
                                         className="text-sm text-gray-900 dark:text-white"
                                         role="none"
                                     >
-                                        Ahmad Ikbal Djaya
+                                        {auth.user.username}
                                     </p>
                                     <p
                                         className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                                         role="none"
                                     >
-                                        ikbaldjaya@gmail.com
+                                        {auth.user.email}
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">
