@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import BaseLayout from "../../../layouts/BaseLayout";
 import Breadcrumb from "../../../components/Breadcrumb";
 import pickBy from "lodash.pickby";
-import { router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import { IoMdEye } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -51,6 +51,7 @@ export default function Index({ admins, meta }) {
     }
     return (
         <>
+            <Head title="Akun Admin" />
             <BaseLayout>
                 <Breadcrumb
                     items={[
