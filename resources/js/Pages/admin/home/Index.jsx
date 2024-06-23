@@ -4,7 +4,6 @@ import { MdOutlineReport } from "react-icons/md";
 import { IoMdEye } from "react-icons/io";
 
 export default function Index({ reports, counts }) {
-    console.log(counts);
     return (
         <BaseLayout>
             <h1 className="font-medium text-2xl">Dashboard</h1>
@@ -39,7 +38,9 @@ export default function Index({ reports, counts }) {
                             <div className="font-medium text-gray-600">
                                 Laporan Jalanan
                             </div>
-                            <div className="font-medium text-xl">{counts.road_report_count}</div>
+                            <div className="font-medium text-xl">
+                                {counts.road_report_count}
+                            </div>
                         </div>
                         <div className="bg-blue-200 rounded-lg">
                             <MdOutlineReport
@@ -61,7 +62,9 @@ export default function Index({ reports, counts }) {
                             <div className="font-medium text-gray-600">
                                 Laporan Trotoar
                             </div>
-                            <div className="font-medium text-xl">{counts.troto_report_count}</div>
+                            <div className="font-medium text-xl">
+                                {counts.troto_report_count}
+                            </div>
                         </div>
                         <div className="bg-green-200 rounded-lg">
                             <MdOutlineReport
@@ -83,7 +86,9 @@ export default function Index({ reports, counts }) {
                             <div className="font-medium text-gray-600">
                                 Laporan Rambu
                             </div>
-                            <div className="font-medium text-xl">{counts.rambu_report_count}</div>
+                            <div className="font-medium text-xl">
+                                {counts.rambu_report_count}
+                            </div>
                         </div>
                         <div className="bg-red-200 rounded-lg">
                             <MdOutlineReport
