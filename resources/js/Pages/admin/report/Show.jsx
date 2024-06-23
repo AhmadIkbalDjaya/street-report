@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BaseLayout from "../../../layouts/BaseLayout";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { MdDelete } from "react-icons/md";
 import ShowRowData from "../../../components/ShowRowData";
 import { router, usePage } from "@inertiajs/react";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function Show({ report, statuses }) {
     const { url } = usePage().props;
@@ -12,6 +14,27 @@ export default function Show({ report, statuses }) {
     const [selectedImage, setSelectedImage] = useState(
         report.media.length > 0 ? report.media[0].path : ""
     );
+    const mapContainer = useRef(null);
+    const map = useRef(null);
+    const [lng] = useState(report.longitude);
+    const [lat] = useState(report.latitude);
+    const [zoom] = useState(14);
+    const [API_KEY] = useState("59l19GYa3vqXGGIlpAez");
+
+    useEffect(() => {
+        if (map.current) return;
+
+        map.current = new maplibregl.Map({
+            container: mapContainer.current,
+            style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${API_KEY}`,
+            center: [lng, lat],
+            zoom: zoom,
+        });
+        map.current.addControl(new maplibregl.NavigationControl(), "top-right");
+        new maplibregl.Marker({ color: "#FF0000" })
+            .setLngLat([lng, lat])
+            .addTo(map.current);
+    }, [API_KEY, lng, lat, zoom]);
 
     const handleImageClick = (imageUrl) => {
         setSelectedImage(imageUrl);
@@ -150,7 +173,7 @@ export default function Show({ report, statuses }) {
                             <input
                                 type="number"
                                 id="first_name"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 value={point}
                                 required
                                 onChange={(e) => {
@@ -209,6 +232,25 @@ export default function Show({ report, statuses }) {
                         ))}
                     </div>
                 </div>
+            </div>
+
+            <div className="map-wrap relative w-full h-60">
+                <div
+                    ref={mapContainer}
+                    className="map absolute w-full h-full"
+                />
+                <a
+                    href={`https://maps.google.com/?q=${report.latitude},${report.longitude}`}
+                    className="absolute bottom-0 flex gap-x-1 bg-white rounded-sm pt-1 pe-1 font-medium text-xs"
+                >
+                    <img
+                        src={`${url}/images/google-maps.png`}
+                        alt=""
+                        srcset=""
+                        className="w-5"
+                    />
+                    Gmaps
+                </a>
             </div>
         </BaseLayout>
     );
