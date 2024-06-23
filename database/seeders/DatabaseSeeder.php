@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReportStatusSeeder::class);
         $this->call(ReportSeeder::class);
         $this->call(AdminSeeder::class);
+        $this->call(ReportMediaSeeder::class);
         // $this->call(ReportSeeder::class);
         // $this->call(ReportSeeder::class);
     }

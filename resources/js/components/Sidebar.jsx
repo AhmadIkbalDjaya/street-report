@@ -4,7 +4,7 @@ import { BsMailbox2 } from "react-icons/bs";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
 
 export default function Sidebar() {
-    const auth = usePage().props.auth;
+    const { auth, new_report_count } = usePage().props;
     return (
         <aside
             id="logo-sidebar"
@@ -24,18 +24,18 @@ export default function Sidebar() {
                         name="Laporan"
                         route_name="admin.report"
                         icon={<BsMailbox2 className="w-full h-full" />}
-                        count={3}
+                        count={new_report_count}
                     />
-                    {auth.user.type == "super" ||
-                        (auth.user.type == "province" && (
-                            <SidebarItem
-                                name="Akun Admin"
-                                route_name="admin.account"
-                                icon={
-                                    <TbLayoutDashboardFilled className="w-full h-full" />
-                                }
-                            />
-                        ))}
+                    {(auth.user.type == "super" ||
+                        auth.user.type == "province") && (
+                        <SidebarItem
+                            name="Akun Admin"
+                            route_name="admin.account"
+                            icon={
+                                <TbLayoutDashboardFilled className="w-full h-full" />
+                            }
+                        />
+                    )}
                 </ul>
             </div>
         </aside>

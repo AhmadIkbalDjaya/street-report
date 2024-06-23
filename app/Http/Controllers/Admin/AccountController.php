@@ -23,18 +23,18 @@ class AccountController extends Controller
         $page = $request->input("page", 1);
         $search = $request->input("search", "");
 
+        $admin_query = Admin::query();
+        if ($search) {
+            $admin_query->where("username", "LIKE", "%$search%")
+                ->orWhere("email", "LIKE", "%$search%")
+                ->orWhereHas("province", function ($query) use ($search) {
+                    $query->where("name", "LIKE", "%$search%");
+                });
+        }
         if ($auth_user->type == "super") {
             $admin_query = Admin::where("type", "province");
         } else if ($auth_user->type == "province") {
             $admin_query = Admin::where("type", "regency")->where("province_id", $auth_user->province_id);
-
-        }
-
-        if ($search) {
-            $admin_query->where("name", "LIKE", "%$search%")
-                ->orWhereHas("user", function ($query) use ($search) {
-                    $query->where("name", "LIKE", "%$search%");
-                });
         }
         $admins = $admin_query->latest()->paginate(10, ["*"], 'page', $page);
         $meta = [

@@ -16,11 +16,6 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                "email" => "admin@gmail.com",
-                "name" => "Street Report Admin",
-                "password" => Hash::make("password"),
-            ],
-            [
                 "email" => "ikbal@gmail.com",
                 "name" => "Ikbal Djaya",
                 "password" => Hash::make("password"),
@@ -32,7 +27,7 @@ class UserSeeder extends Seeder
             ],
             [
                 "email" => "caca@gmail.com",
-                "name" => "Caca Salsabila",
+                "name" => "Fitria Salsabila",
                 "password" => Hash::make("password"),
             ],
         ];

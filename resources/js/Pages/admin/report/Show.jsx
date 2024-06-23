@@ -8,6 +8,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function Show({ report, statuses }) {
+    console.log(report);
     const { url } = usePage().props;
     const [statusId, setStatusId] = useState(report.status_id);
     const [point, setPoint] = useState(report.point);
@@ -68,13 +69,13 @@ export default function Show({ report, statuses }) {
 
             <div className="flex justify-between items-center mb-4">
                 <h2 className="font-medium text-xl">Detail Laporan</h2>
-                <button
+                {/* <button
                     type="button"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 flex items-center gap-x-1"
                 >
                     <MdDelete size={16} />
                     Hapus
-                </button>
+                </button> */}
             </div>
             <div className="block pb-6 px-0 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div className="px-6 py-3 flex justify-between border-b-2 border-solid border-gray-50">
@@ -130,7 +131,7 @@ export default function Show({ report, statuses }) {
                             <p>Status Laporan</p>
                             <p>: </p>
                         </div>
-                        <div className="col-span-7 flex gap-x-2">
+                        <div className="col-span-7 flex flex-wrap gap-x-2">
                             <select
                                 id="countries"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -169,7 +170,7 @@ export default function Show({ report, statuses }) {
                             <p>Berikan Point</p>
                             <p>: </p>
                         </div>
-                        <div className="col-span-7 flex gap-x-2">
+                        <div className="col-span-7 flex flex-wrap gap-x-2">
                             <input
                                 type="number"
                                 id="first_name"
@@ -193,22 +194,44 @@ export default function Show({ report, statuses }) {
             </div>
 
             <div className="mt-6">
+                <h1 className="font-medium mb-3 text-xl">Lokasi Laporan</h1>
+                <div className="map-wrap relative w-full h-60">
+                    <div
+                        ref={mapContainer}
+                        className="map absolute w-full h-full"
+                    />
+                    <a
+                        href={`https://maps.google.com/?q=${report.latitude},${report.longitude}`}
+                        className="absolute bottom-0 flex gap-x-1 bg-white rounded-sm pt-1 pe-1 font-medium text-xs"
+                    >
+                        <img
+                            src={`${url}/images/google-maps.png`}
+                            alt=""
+                            srcset=""
+                            className="w-5"
+                        />
+                        Gmaps
+                    </a>
+                </div>
+            </div>
+
+            <div className="mt-6 mb-5">
                 <p className="font-medium text-2xl pb-1">Foto Laporan</p>
                 <div className="grid gap-4">
-                    <div>
+                    <div className="mx-auto">
                         {selectedImage && (
                             <img
-                                className="h-auto max-w-full rounded-lg cursor-pointer"
+                                className="w-auto max-h-60 rounded-lg cursor-pointer"
                                 src={selectedImage}
                                 alt=""
-                                onClick={() => setSelectedImage("")}
+                                // onClick={() => setSelectedImage("")}
                             />
                         )}
                         {!selectedImage && (
                             <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 pb-3">
                                 <div className="grid place-item-center">
                                     <img
-                                        className="w-3/12 mx-auto rounded-lg"
+                                        className="w-3/12 mx-auto rounded-lg "
                                         src={`${url}/images/no-pictures.png`}
                                         alt=""
                                     />
@@ -223,34 +246,15 @@ export default function Show({ report, statuses }) {
                         {report.media.map((image, index) => (
                             <div key={index}>
                                 <img
-                                    className="h-auto max-w-full rounded-lg cursor-pointer"
-                                    src={`${url}/storage/${image.path}`}
+                                    className="h-14 md:h-28 w-full rounded-lg cursor-pointer"
+                                    src={`${image.path}`}
                                     alt=""
-                                    onClick={() => handleImageClick(image)}
+                                    onClick={() => handleImageClick(image.path)}
                                 />
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
-
-            <div className="map-wrap relative w-full h-60">
-                <div
-                    ref={mapContainer}
-                    className="map absolute w-full h-full"
-                />
-                <a
-                    href={`https://maps.google.com/?q=${report.latitude},${report.longitude}`}
-                    className="absolute bottom-0 flex gap-x-1 bg-white rounded-sm pt-1 pe-1 font-medium text-xs"
-                >
-                    <img
-                        src={`${url}/images/google-maps.png`}
-                        alt=""
-                        srcset=""
-                        className="w-5"
-                    />
-                    Gmaps
-                </a>
             </div>
         </BaseLayout>
     );

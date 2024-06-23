@@ -7,8 +7,8 @@ export default function Index({ reports, counts }) {
     return (
         <BaseLayout>
             <h1 className="font-medium text-2xl">Dashboard</h1>
-            <div className="grid grid-cols-12 gap-x-2 my-5">
-                <div className="col-span-3 p-3 cursor-pointer bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="grid grid-cols-12 gap-3 my-5">
+                <div className="col-span-6 md:col-span-3 p-3 cursor-pointer bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <div className="flex justify-between items-start">
                         <div className="">
                             <div className="font-medium text-gray-600">
@@ -32,7 +32,7 @@ export default function Index({ reports, counts }) {
                         Lihat selengkapnya
                     </a>
                 </div>
-                <div className="col-span-3 p-3 cursor-pointer bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div className="col-span-6 md:col-span-3 p-3 cursor-pointer bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <div className="flex justify-between items-start">
                         <div className="">
                             <div className="font-medium text-gray-600">
@@ -56,7 +56,7 @@ export default function Index({ reports, counts }) {
                         Lihat selengkapnya
                     </a>
                 </div>
-                <div className="col-span-3 p-3 cursor-pointer bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div className="col-span-6 md:col-span-3 p-3 cursor-pointer bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <div className="flex justify-between items-start">
                         <div className="">
                             <div className="font-medium text-gray-600">
@@ -80,7 +80,7 @@ export default function Index({ reports, counts }) {
                         Lihat selengkapnya
                     </a>
                 </div>
-                <div className="col-span-3 p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div className="col-span-6 md:col-span-3 p-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <div className="flex justify-between items-start">
                         <div className="">
                             <div className="font-medium text-gray-600">

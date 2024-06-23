@@ -29,9 +29,9 @@ class AdminSeeder extends Seeder
         $provinces = Province::get();
         foreach ($provinces as $province) {
             Admin::insert([
-                'email' => strtolower($province->name) . 'admin@example.com',
+                'email' => str_replace(" ", "", strtolower($province->name)) . 'admin@example.com',
                 'password' => Hash::make('password'),
-                'username' => strtolower($province->name) . 'admin',
+                'username' => str_replace(" ", "", strtolower($province->name)) . 'admin',
                 'province_id' => $province->id,
                 'regency_id' => null,
                 'type' => 'province'
@@ -42,9 +42,9 @@ class AdminSeeder extends Seeder
         $regencies = Regency::get();
         foreach ($regencies as $regency) {
             Admin::insert([
-                'email' => strtolower($regency->name) . 'admin@example.com',
+                'email' => str_replace(" ", "", strtolower($regency->name)) . 'admin@example.com',
                 'password' => Hash::make('password'),
-                'username' => strtolower($regency->name) . 'admin',
+                'username' => str_replace(" ", "", strtolower($regency->name)) . 'admin',
                 'province_id' => $regency->province_id,
                 'regency_id' => $regency->id,
                 'type' => 'regency'

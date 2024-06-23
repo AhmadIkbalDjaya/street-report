@@ -3,6 +3,7 @@ import React from "react";
 
 export default function Navbar() {
     const auth = usePage().props.auth;
+    const { url } = usePage().props;
     return (
         <nav className="fixed top-0 z-50 w-full bg-white dark:bg-gray-800">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -35,7 +36,7 @@ export default function Navbar() {
                             className="flex ms-2 md:me-24"
                         >
                             <img
-                                src="https://flowbite.com/docs/images/logo.svg"
+                                src={`${url}/images/logo.png`}
                                 className="h-8 me-3"
                                 alt="FlowBite Logo"
                             />

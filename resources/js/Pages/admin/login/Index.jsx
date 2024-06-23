@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { router, usePage } from "@inertiajs/react";
 
 export default function Index() {
+    const { url } = usePage().props;
     const { errors, flash } = usePage().props;
     const [formValues, setFormValues] = useState({
         email: "",
@@ -24,14 +25,14 @@ export default function Index() {
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
                 <a
                     href="#"
                     className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
                 >
                     <img
-                        className="w-8 h-8 mr-2"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                        className="w-8 mr-2"
+                        src={`${url}/images/logo.png`}
                         alt="logo"
                     />
                     Street Report
@@ -96,7 +97,7 @@ export default function Index() {
                                     </p>
                                 )}
                             </div>
-                            <div className="flex items-center justify-between">
+                            {/* <div className="flex items-center justify-between">
                                 <div className="flex items-start">
                                     <div className="flex items-center h-5">
                                         <input
@@ -122,7 +123,7 @@ export default function Index() {
                                 >
                                     Lupa kata sandi?
                                 </a>
-                            </div>
+                            </div> */}
                             <button
                                 type="submit"
                                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
